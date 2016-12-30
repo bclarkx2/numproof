@@ -1,0 +1,57 @@
+This LaTeX package provides basic functionality for writing proofs. The format is based
+off of the enumerate environment from the enumitem package. Each line is numbered, and 
+the package provides several additional tools.
+
+The proof environments in this package are intended to have a spread out, uncompressed 
+style. They are not space efficient, but it's up to you to decide if they look nice.
+
+Please see the included .tex and .pdf files for an example.
+
+1. numproof environment
+
+This is the basic proof environment. The first argument dictates the title of the 
+proof, and the second optional argument selects the number of the first line label.
+
+
+2. subproof environment
+
+This environment looks similar to the proof environment, except that it is designed 
+to be used nested below a single line of a numproof environment. First parameter is
+the root label, and you may optionally provide the character type that will be 
+appended to the root label to index the subproof lines. This type defaults to alph*
+ e.x: 
+	#1 = 7
+	#2 = \Alph*
+
+	First line: 	7A
+	Second line: 	7B
+	Third line: 	7c
+	etc...
+
+
+3. Comments
+
+You may insert a line comment onto the end of any numproof or subproof line using 
+the \com or \comline commands. These are right justified. The typical use might be 
+to give the name of a theorem you used to derive the current line. \com will insert 
+a simple comment. \comline has a second parameter that takes a line number or a 
+range of line numbers and inserts a reference to those lines at the end of the 
+comment.
+
+
+4. Notes
+
+The \note command will insert both a footnote at the bottom of the current page and 
+a reference to the footnote at the end of the current line. Each additional footnote 
+will use a different footnote symbol. The cycle of symbols resets when you make a new 
+numproof environment.
+
+
+5. QED
+
+The final line of a numproof will automatically include a QED box on the right of the 
+page.
+
+@author Brian Clark
+@date 12/30/2016
+@version 1.0
