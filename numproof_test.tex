@@ -1,0 +1,93 @@
+% Class
+
+\documentclass{homework}
+
+
+% Info
+
+\student{Brian Clark}
+\course{EECS 391}
+\assignment{HWX}
+\duedate{Never}
+
+
+% Packages
+
+\usepackage{amsmath}
+\usepackage{nccmath}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{textcomp}
+\usepackage{lipsum}
+\usepackage{numproof}
+\usepackage{amssymb} 	
+
+% Settings
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+\graphicspath{ {img/} }
+
+
+% Commands
+
+\newcommand{\bol}[1]{\textbf{#1}}
+\newcommand{\pof}[1]{\textbf{P}(#1)}
+
+
+% Document
+
+\begin{document}
+\maketitle
+
+
+\begin{numproof}{Proof of Brian's Theorem}
+	\item Hello, this is line number 1.\comline{Modus Ponens}{3-4}
+	\item This is line number 2\comline{Modus Tollens}{5}
+	\item line 3, has comment without line number \com{Normal comment}
+	\begin{subproof}{3}
+		\item this is a subproof, first item
+		\item subproof, line 2 \com{Subproofs can have comments}
+		\item subproof, line 3 \comline{Even lined comments}{2-6}
+	\end{subproof}
+	\item Return to normal lines
+	\item This line has a note! \note{This could be quite a lengthy explanation. \lipsum[1]}
+	\item This line also has a note, with a different symbol. \note{Hello!}
+	\item Here's a line with a subproof
+		\begin{subproof}{7}
+			\item Subproof 1
+			\item Subproof 2
+			\item Subproof 3 - This line requires another level
+				\begin{subproof}{c}[\arabic*]
+					\item l1
+					\item l2
+				\end{subproof}
+			\item Subproof 4
+		\end{subproof}
+	\item Back to regular lines
+	\item Hello!
+	\item Wasting space!
+	\item This line is really long, and also has a comment! \lipsum[4] \comline{White Path Theorem}{2}
+	\item Another normal line!
+	\item Theorem = proved
+\end{numproof}
+
+
+\newpage
+\begin{numproof}{Proof Number 2}
+	\item Notes in this proof start over with the symbols. \note{different symbol!}
+\end{numproof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

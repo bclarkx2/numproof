@@ -1,0 +1,89 @@
+% Identification
+
+\ProvidesPackage{numproof}
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+
+% Preliminary Declarations
+\RequirePackage{tikz}
+\RequirePackage{enumitem}
+\RequirePackage{xparse}
+\RequirePackage{inconsolata}
+\RequirePackage{xstring}
+\RequirePackage{amssymb}
+
+% Creates line label nodes. All evely sized
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt, minimum size=1.75em] (char) {#1};}}
+
+% Redefines footnotes to use standard cycle of symbols
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+% Extends the xstring IfInteger command to return paramter 
+% #3 if the input #1 is a space.
+\NewDocumentCommand
+	{\IsInteger}
+	{mmm}
+	{
+		\IfStrEq{#1}{ }
+		{
+			#3
+		}
+		{ % Else
+			\unskip\IfInteger{#1}{#2}{#3}
+		}
+	}
+
+% Inserts a comment without a line number
+\NewDocumentCommand
+	{\com}
+	{m}
+	{\hfill \textit{#1}}
+
+% Inserts a comment with a line number. If the given
+% number is a single integer, will display "Line _". Otherwise,
+% will display "Lines _".
+\NewDocumentCommand
+	{\comline}
+	{m m}
+	{\hfill \textit{#1},\IsInteger{#2}{Line}{Lines}\unskip#2}
+
+% Inserts both a footnote at the bottom of the page as well as 
+% a reference to that footnote at the end of the line.
+\NewDocumentCommand
+	{\note}
+	{m}
+	{ \hfill \textit{See below}\footnote{#1}}
+
+
+% Options
+
+
+% More Declarations
+
+% Environment to write a proof. Requires title parameter, 
+% may additionally provide a parameter indicating the label 
+% number for the first line (will default to 1).
+\NewDocumentEnvironment
+	{numproof}
+	{m O{1}}
+	{ \setcounter{footnote}{0} \centering{\Large\textbf{#1}} \begin{enumerate}[label=\large\texttt{\protect\circled{\arabic*}}, start=#2, align=left]} 
+	{ \hfill $\blacksquare$ \end{enumerate}}
+
+% Environment to write a subproof. Requires root label,
+% may optionally provide character type that will be 
+% appended to the root label to index the subproof lines.
+% e.x: 
+%	#1 = 7
+%	#2 = \Alph*
+%
+%	First line: 	7A
+%	Second line: 	7B
+%	Third line: 	7c
+%	etc...
+%
+% Defaults to alph*
+\NewDocumentEnvironment
+	{subproof}
+	{m O{\alph*}}
+	{ \begin{enumerate}[label=\large\texttt{\protect\circled{#1#2}}, align=left] }
+	{\end{enumerate}}
