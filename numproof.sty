@@ -47,6 +47,11 @@
 	{m m}
 	{\hfill \textit{#1},\IsInteger{#2}{Line}{Lines}\unskip#2}
 
+\NewDocumentCommand
+	{\lines}
+	{m}
+	{\hfill \IsInteger{#1}{Line}{Lines}\unskip#1}
+
 % Inserts both a footnote at the bottom of the page as well as 
 % a reference to that footnote at the end of the line.
 \NewDocumentCommand
