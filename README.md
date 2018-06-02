@@ -7,8 +7,8 @@ the package provides several additional tools.
 
 Please see the included .tex and .pdf files for an example.
 
-<object data="numproof/numproof_test.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="numproof/numproof_test.pdf">
+<object data="https://github.com/bclarkx2/numproof/blob/master/numproof_test.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="https://github.com/bclarkx2/numproof/blob/master/numproof_test.pdf">
     </embed>
 </object>
 
