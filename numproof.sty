@@ -11,9 +11,13 @@
 \RequirePackage{inconsolata}
 \RequirePackage{xstring}
 \RequirePackage{amssymb}
+\RequirePackage{ifthen}
+\RequirePackage{etoolbox}
+\RequirePackage{expl3}
+
 
 % Creates line label nodes. All evely sized
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt, minimum size=1.75em] (char) {#1};}}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt, minimum size=1.5em] (char) {#1};}}
 
 % Redefines footnotes to use standard cycle of symbols
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
@@ -32,6 +36,20 @@
 			\unskip\IfInteger{#1}{#2}{#3}
 		}
 	}
+
+\NewDocumentCommand
+    {\GetNumbering}
+    {m}
+    {
+
+        \IfEqCase{#1}{
+            {a}{GOTA}
+            {0}{"\arabic*"}
+            % {0}{\arabic*}
+            % {1}{\arabic*{enumi}\arabic*}
+            % {2}{\arabic*{enumii}\arabic*{enumi}\arabic*}
+        }[\PackageError{GetNumbering}{bad depth: #1}{}]
+    }
 
 % Inserts a comment without a line number
 \NewDocumentCommand
@@ -65,30 +83,29 @@
 
 % More Declarations
 
-% Environment to write a proof. Requires title parameter, 
-% may additionally provide a parameter indicating the label 
-% number for the first line (will default to 1).
+% General proof environment.
+% Arguments: #1 -> depth level of proof, where 0 is topmost
 \NewDocumentEnvironment
-	{numproof}
-	{m O{1}}
-	{ \setcounter{footnote}{0} \centering{\Large\textbf{#1}} \begin{enumerate}[label=\large\texttt{\protect\circled{\arabic*}}, start=#2, align=left]} 
-	{ \hfill $\blacksquare$ \end{enumerate}}
+    {subproof}
+    {m}
+    {
 
-% Environment to write a subproof. Requires root label,
-% may optionally provide character type that will be 
-% appended to the root label to index the subproof lines.
-% e.x: 
-%	#1 = 7
-%	#2 = \Alph*
-%
-%	First line: 	7A
-%	Second line: 	7B
-%	Third line: 	7c
-%	etc...
-%
-% Defaults to alph*
+        \setcounter{footnote}{0}
+        \ifdefequal{#1}{0}{
+            \begin{enumerate}[label=\textbf{\texttt{\arabic*}}, align=right, labelsep=10pt, itemsep=0.25em, topsep=0em, partopsep=0.25em]}
+        {\ifdefequal{#1}{1}{
+            \begin{enumerate}[label=\textbf{\texttt{\arabic{enumi}.\arabic*}}, align=right, labelsep=10pt, itemsep=0.25em, topsep=0em, partopsep=0.25em]}
+        {\ifdefequal{#1}{2}{
+            \begin{enumerate}[label=\textbf{\texttt{\arabic{enumi}.\arabic{enumii}.\arabic*}}, align=right, labelsep=10pt, itemsep=0.25em, topsep=0em, partopsep=0.25em]}
+        {
+            \begin{enumerate}}}}}
+    {\end{enumerate}}
+
+% Outermost proof level
+% Arguments: #1 -> Proof title
 \NewDocumentEnvironment
-	{subproof}
-	{m O{\alph*}}
-	{ \begin{enumerate}[label=\large\texttt{\protect\circled{#1#2}}, align=left] }
-	{\end{enumerate}}
+    {numproof}
+    {m}
+    { \centering{\Large\textbf{#1}}
+      \begin{subproof}{0}} 
+    { \hfill $\blacksquare$ \end{subproof}}
