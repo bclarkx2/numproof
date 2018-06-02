@@ -62,7 +62,7 @@
 
 % More Declarations
 
-% General proof environment.
+% General proof environment. Note that only 4 levels of nesting are allowed.
 % Arguments: #1 -> depth level of proof, where 0 is topmost
 \NewDocumentEnvironment
     {subproof}
@@ -76,8 +76,10 @@
             \begin{enumerate}[label=\textbf{\texttt{\arabic{enumi}.\arabic*}}, align=right, labelsep=10pt, itemsep=0.25em, topsep=0em, partopsep=0.25em]}
         {\ifdefequal{#1}{2}{
             \begin{enumerate}[label=\textbf{\texttt{\arabic{enumi}.\arabic{enumii}.\arabic*}}, align=right, labelsep=10pt, itemsep=0.25em, topsep=0em, partopsep=0.25em]}
+        {\ifdefequal{#1}{3}{
+            \begin{enumerate}[label=\textbf{\texttt{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic*}}, align=right, labelsep=10pt, itemsep=0.25em, topsep=0em, partopsep=0.25em]}
         {
-            \begin{enumerate}}}}}
+            \begin{enumerate}}}}}}
     {\end{enumerate}}
 
 % Outermost proof level
