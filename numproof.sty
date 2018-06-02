@@ -15,10 +15,6 @@
 \RequirePackage{etoolbox}
 \RequirePackage{expl3}
 
-
-% Creates line label nodes. All evely sized
-\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt, minimum size=1.5em] (char) {#1};}}
-
 % Redefines footnotes to use standard cycle of symbols
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
@@ -37,20 +33,6 @@
 		}
 	}
 
-\NewDocumentCommand
-    {\GetNumbering}
-    {m}
-    {
-
-        \IfEqCase{#1}{
-            {a}{GOTA}
-            {0}{"\arabic*"}
-            % {0}{\arabic*}
-            % {1}{\arabic*{enumi}\arabic*}
-            % {2}{\arabic*{enumii}\arabic*{enumi}\arabic*}
-        }[\PackageError{GetNumbering}{bad depth: #1}{}]
-    }
-
 % Inserts a comment without a line number
 \NewDocumentCommand
 	{\com}
@@ -65,6 +47,7 @@
 	{m m}
 	{\hfill \textit{#1},\IsInteger{#2}{Line}{Lines}\unskip#2}
 
+% Inserts a line number statement.
 \NewDocumentCommand
 	{\lines}
 	{m}
