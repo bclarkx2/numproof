@@ -38,7 +38,12 @@ numproof environment.
 The final line of a numproof will automatically include a QED box on the right of the 
 page.
 
-@author Brian Clark
-@date 12/30/2016
-@version 1.0
 
+## Licensing
+
+MIT (see LICENSE file)
+
+
+## Authors
+
+Brian Clark
